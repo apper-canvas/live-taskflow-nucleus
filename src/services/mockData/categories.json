@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 1,
+    "name": "Business",
+    "color": "#5B4CFF",
+    "taskCount": 0
+  },
+  {
+    "Id": 2,
+    "name": "Marketing",
+    "color": "#FF6B6B",
+    "taskCount": 0
+  },
+  {
+    "Id": 3,
+    "name": "Development",
+    "color": "#4ECDC4",
+    "taskCount": 0
+  },
+  {
+    "Id": 4,
+    "name": "Management",
+    "color": "#FBBF24",
+    "taskCount": 0
+  },
+  {
+    "Id": 5,
+    "name": "Personal",
+    "color": "#A855F7",
+    "taskCount": 0
+  }
+]

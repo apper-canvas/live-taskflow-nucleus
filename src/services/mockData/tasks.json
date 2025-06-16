@@ -1,0 +1,57 @@
+[
+  {
+    "Id": 1,
+    "title": "Prepare quarterly business review",
+    "description": "Compile metrics, create presentation slides, and schedule stakeholder meetings for Q3 review",
+    "category": 1,
+    "priority": 3,
+    "dueDate": "2024-01-15T09:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-10T08:30:00.000Z",
+    "order": 0
+  },
+  {
+    "Id": 2,
+    "title": "Review and approve marketing campaign",
+    "description": "Final review of social media assets, copy, and budget allocation for the new product launch",
+    "category": 2,
+    "priority": 2,
+    "dueDate": "2024-01-16T14:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-11T10:15:00.000Z",
+    "order": 1
+  },
+  {
+    "Id": 3,
+    "title": "Update project documentation",
+    "description": "Revise technical specifications, update API documentation, and create user guides",
+    "category": 3,
+    "priority": 1,
+    "dueDate": "2024-01-18T17:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-12T09:45:00.000Z",
+    "order": 2
+  },
+  {
+    "Id": 4,
+    "title": "Schedule team one-on-ones",
+    "description": "Book calendar time with each team member for monthly check-ins and performance discussions",
+    "category": 4,
+    "priority": 2,
+    "dueDate": "2024-01-14T16:00:00.000Z",
+    "completed": true,
+    "createdAt": "2024-01-08T11:20:00.000Z",
+    "order": 3
+  },
+  {
+    "Id": 5,
+    "title": "Research competitor analysis",
+    "description": "Analyze competitor features, pricing strategies, and market positioning for strategic planning",
+    "category": 1,
+    "priority": 1,
+    "dueDate": "2024-01-20T12:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-13T14:10:00.000Z",
+    "order": 4
+  }
+]
