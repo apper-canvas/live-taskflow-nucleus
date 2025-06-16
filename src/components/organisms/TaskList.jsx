@@ -1,27 +1,11 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import {
-  useSortable,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { toast } from 'react-toastify';
-import TaskCard from '@/components/molecules/TaskCard';
-import { taskService } from '@/services';
-
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { DndContext, KeyboardSensor, PointerSensor, closestCenter, useSensor, useSensors } from "@dnd-kit/core";
+import { SortableContext, arrayMove, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { toast } from "react-toastify";
+import TaskCard from "@/components/molecules/TaskCard";
+import { taskService } from "@/services";
 const SortableTaskCard = ({ task, categories, onUpdate, onDelete }) => {
   const {
     attributes,
@@ -110,8 +94,8 @@ const TaskList = ({
     if (onTaskDelete) onTaskDelete(taskId);
   };
 
-  // Update local tasks when tasks prop changes
-  useState(() => {
+// Update local tasks when tasks prop changes
+  useEffect(() => {
     setLocalTasks(tasks);
   }, [tasks]);
 
