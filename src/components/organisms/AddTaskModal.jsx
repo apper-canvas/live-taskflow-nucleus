@@ -22,13 +22,13 @@ const AddTaskModal = ({ isOpen, onClose, task = null }) => {
   useEffect(() => {
     if (isOpen) {
       loadCategories();
-      if (task) {
+if (task) {
         setFormData({
           title: task.title || '',
           description: task.description || '',
           category: task.category || '',
           priority: task.priority || 2,
-          dueDate: task.dueDate ? format(new Date(task.dueDate), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd')
+          dueDate: task.due_date ? format(new Date(task.due_date), 'yyyy-MM-dd') : task.dueDate ? format(new Date(task.dueDate), 'yyyy-MM-dd') : format(new Date(), 'yyyy-MM-dd')
         });
       }
     }
@@ -81,11 +81,13 @@ const AddTaskModal = ({ isOpen, onClose, task = null }) => {
 
     setLoading(true);
     try {
-      const taskData = {
-        ...formData,
+const taskData = {
+        title: formData.title,
+        description: formData.description,
         category: parseInt(formData.category, 10),
         priority: parseInt(formData.priority, 10),
-        dueDate: new Date(formData.dueDate).toISOString()
+        due_date: new Date(formData.dueDate).toISOString(),
+        Name: formData.title
       };
 
       if (task) {
@@ -189,8 +191,8 @@ const AddTaskModal = ({ isOpen, onClose, task = null }) => {
                 >
                   <option value="">Select a category</option>
                   {categories.map(category => (
-                    <option key={category.Id} value={category.Id}>
-                      {category.name}
+<option key={category.Id} value={category.Id}>
+                      {category.Name || category.name}
                     </option>
                   ))}
                 </select>

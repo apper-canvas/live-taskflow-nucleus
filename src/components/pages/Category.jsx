@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { toast } from 'react-toastify';
-import ApperIcon from '@/components/ApperIcon';
-import SearchBar from '@/components/molecules/SearchBar';
-import TaskList from '@/components/organisms/TaskList';
-import SkeletonLoader from '@/components/molecules/SkeletonLoader';
-import ErrorState from '@/components/molecules/ErrorState';
-import EmptyState from '@/components/molecules/EmptyState';
-import CategoryBadge from '@/components/molecules/CategoryBadge';
-import { taskService, categoryService } from '@/services';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import ApperIcon from "@/components/ApperIcon";
+import SearchBar from "@/components/molecules/SearchBar";
+import TaskList from "@/components/organisms/TaskList";
+import SkeletonLoader from "@/components/molecules/SkeletonLoader";
+import ErrorState from "@/components/molecules/ErrorState";
+import EmptyState from "@/components/molecules/EmptyState";
+import CategoryBadge from "@/components/molecules/CategoryBadge";
+import { categoryService, taskService } from "@/services";
 
 const Category = () => {
   const { categoryId } = useParams();
@@ -22,11 +22,9 @@ const Category = () => {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
+useEffect(() => {
     if (categoryId) {
       loadData();
-    } else {
-      loadCategories();
     }
   }, [categoryId]);
 
@@ -181,7 +179,7 @@ const Category = () => {
                   </span>
                 </div>
                 <h3 className="text-lg font-heading font-semibold text-gray-900 mb-1">
-                  {cat.name}
+{cat.Name || cat.name}
                 </h3>
                 <p className="text-gray-600 text-sm">
                   {cat.taskCount} task{cat.taskCount !== 1 ? 's' : ''}
@@ -199,120 +197,119 @@ const Category = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
-      >
+    {/* Header */}
+    <motion.div
+        initial={{
+            opacity: 0,
+            y: -20
+        }}
+        animate={{
+            opacity: 1,
+            y: 0
+        }}
+        className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center">
-            <button
-              onClick={() => navigate('/category')}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors mr-3"
-            >
-              <ApperIcon name="ArrowLeft" size={20} />
-            </button>
-            <div>
-              <div className="flex items-center mb-2">
-                {category && <CategoryBadge category={category} className="mr-3" />}
-                <h1 className="text-3xl font-heading font-bold text-gray-900">
-                  {category?.name || 'Category'}
-                </h1>
-              </div>
-              <p className="text-gray-600">
-                {hasNoTasks 
-                  ? "No tasks in this category yet"
-                  : `${filteredTasks.length} task${filteredTasks.length !== 1 ? 's' : ''} in this category`
-                }
-              </p>
+            <div className="flex items-center">
+                <button
+                    onClick={() => navigate("/category")}
+                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors mr-3">
+                    <ApperIcon name="ArrowLeft" size={20} />
+                </button>
+                <div>
+                    <div className="flex items-center mb-2">
+                        {category && <CategoryBadge category={category} className="mr-3" />}
+                        <h1 className="text-3xl font-heading font-bold text-gray-900">
+                            {category?.Name || category?.name || "Category"}
+                        </h1>
+                    </div>
+                    <p className="text-gray-600">
+                        {hasNoTasks ? "No tasks in this category yet" : `${filteredTasks.length} task${filteredTasks.length !== 1 ? "s" : ""} in this category`}
+                    </p>
+                </div>
             </div>
-          </div>
         </div>
-
         {/* Search Bar */}
-        {!hasNoTasks && (
-          <SearchBar
+        {!hasNoTasks && <SearchBar
             onSearch={handleSearch}
             placeholder="Search category tasks..."
-            className="max-w-md"
-          />
-        )}
-      </motion.div>
-
-      {/* Content */}
-      {hasNoTasks ? (
-        <EmptyState
-          icon="Tag"
-          title="No tasks in this category"
-          description="This category is empty. Add some tasks to get started organizing your work."
-          actionLabel="Add Task"
-          onAction={() => {
-            document.querySelector('[data-testid="add-task-button"]')?.click();
-          }}
-        />
-      ) : hasNoResults ? (
-        <EmptyState
-          icon="Search"
-          title="No tasks found"
-          description={`No tasks in ${category?.name} match "${searchQuery}". Try a different search term.`}
-        />
-      ) : (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          <TaskList
+            className="max-w-md" />}
+    </motion.div>
+    {/* Content */}
+    {hasNoTasks ? <EmptyState
+        icon="Tag"
+        title="No tasks in this category"
+        description="This category is empty. Add some tasks to get started organizing your work."
+        actionLabel="Add Task"
+        onAction={() => {
+            document.querySelector("[data-testid=\"add-task-button\"]")?.click();
+        }} /> : hasNoResults ? <EmptyState
+        icon="Search"
+        title="No tasks found"
+        description={`No tasks in ${category?.Name || category?.name} match "${searchQuery}". Try a different search term.`} /> : <motion.div
+        initial={{
+            opacity: 0,
+            y: 20
+        }}
+        animate={{
+            opacity: 1,
+            y: 0
+        }}
+        transition={{
+            delay: 0.1
+        }}>
+        <TaskList
             tasks={filteredTasks}
             categories={allCategories}
             onTaskUpdate={handleTaskUpdate}
             onTaskDelete={handleTaskDelete}
-            enableDragAndDrop={true}
-          />
-        </motion.div>
-      )}
-
-      {/* Category Stats */}
-      {!hasNoTasks && filteredTasks.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="mt-8 p-4 bg-white rounded-lg border border-gray-100"
-        >
-          <h3 className="text-lg font-heading font-semibold text-gray-900 mb-4">
-            Category Overview
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            enableDragAndDrop={true} />
+    </motion.div>}
+    {/* Category Stats */}
+    {!hasNoTasks && filteredTasks.length > 0 && <motion.div
+        initial={{
+            opacity: 0
+        }}
+        animate={{
+            opacity: 1
+        }}
+        transition={{
+            delay: 0.3
+        }}
+        className="mt-8 p-4 bg-white rounded-lg border border-gray-100">
+        <h3 className="text-lg font-heading font-semibold text-gray-900 mb-4">Category Overview
+                      </h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div>
-              <div className="text-2xl font-bold text-gray-900">
-                {filteredTasks.filter(t => !t.completed).length}
-              </div>
-              <div className="text-sm text-gray-600">Pending</div>
+                <div className="text-2xl font-bold text-gray-900">
+                    {filteredTasks.filter(t => !t.completed).length}
+                </div>
+                <div className="text-sm text-gray-600">Pending</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-accent">
-                {filteredTasks.filter(t => t.completed).length}
-              </div>
-              <div className="text-sm text-gray-600">Completed</div>
+                <div className="text-2xl font-bold text-accent">
+                    {filteredTasks.filter(t => t.completed).length}
+                </div>
+                <div className="text-sm text-gray-600">Completed</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-error">
-                {filteredTasks.filter(t => t.priority === 3 && !t.completed).length}
-              </div>
-              <div className="text-sm text-gray-600">High Priority</div>
+                <div className="text-2xl font-bold text-error">
+                    {filteredTasks.filter(t => t.priority === 3 && !t.completed).length}
+                </div>
+                <div className="text-sm text-gray-600">High Priority</div>
             </div>
             <div>
-              <div className="text-2xl font-bold" style={{ color: category?.color }}>
-                {Math.round((filteredTasks.filter(t => t.completed).length / filteredTasks.length) * 100) || 0}%
-              </div>
-              <div className="text-sm text-gray-600">Complete</div>
+                <div
+                    className="text-2xl font-bold"
+                    style={{
+                        color: category?.color
+                    }}>
+                    {Math.round(filteredTasks.filter(t => t.completed).length / filteredTasks.length * 100) || 0}%
+                                  </div>
+                <div className="text-sm text-gray-600">Complete</div>
             </div>
-          </div>
-        </motion.div>
-      )}
-    </div>
+        </div>
+    </motion.div>}
+</div>
   );
 };
 

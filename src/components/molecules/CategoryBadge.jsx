@@ -16,7 +16,7 @@ const CategoryBadge = ({ category, size = 'md', className = '' }) => {
       `}
       style={{ backgroundColor: category.color }}
     >
-      {category.name}
+{category.Name || category.name}
     </motion.span>
   );
 };

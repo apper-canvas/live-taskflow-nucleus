@@ -118,11 +118,11 @@ const CategorySidebar = ({ onNavigate }) => {
                     className="w-3 h-3 rounded-full mr-3 flex-shrink-0"
                     style={{ backgroundColor: category.color }}
                   />
-                  <span className="text-gray-700 truncate">{category.name}</span>
+<span className="text-gray-700 truncate">{category.Name || category.name}</span>
                 </div>
-                {category.taskCount > 0 && (
+{(category.task_count || category.taskCount) > 0 && (
                   <span className="bg-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded-full ml-2">
-                    {category.taskCount}
+                    {category.task_count || category.taskCount}
                   </span>
                 )}
               </NavLink>

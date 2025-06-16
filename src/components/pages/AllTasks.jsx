@@ -80,7 +80,7 @@ const AllTasks = () => {
       if (a.priority !== b.priority) {
         return b.priority - a.priority;
       }
-      return new Date(a.dueDate) - new Date(b.dueDate);
+return new Date(a.due_date || a.dueDate) - new Date(b.due_date || b.dueDate);
     });
 
     setFilteredTasks(filtered);
@@ -172,8 +172,8 @@ const AllTasks = () => {
                 >
                   <option value="all">All Categories</option>
                   {categories.map(category => (
-                    <option key={category.Id} value={category.Id}>
-                      {category.name}
+<option key={category.Id} value={category.Id}>
+                      {category.Name || category.name}
                     </option>
                   ))}
                 </select>
@@ -227,7 +227,7 @@ const AllTasks = () => {
                 )}
                 {selectedCategory !== 'all' && (
                   <span className="inline-flex items-center px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">
-                    Category: {categories.find(c => c.Id === parseInt(selectedCategory, 10))?.name}
+Category: {categories.find(c => c.Id === parseInt(selectedCategory, 10))?.Name || categories.find(c => c.Id === parseInt(selectedCategory, 10))?.name}
                   </span>
                 )}
                 {selectedPriority !== 'all' && (
