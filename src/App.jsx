@@ -4,18 +4,23 @@ import Layout from '@/Layout';
 import { routes } from '@/config/routes';
 
 function App() {
+  const IndexComponent = routes[0].component;
+  
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          {routes.map(route => (
-            <Route 
-              key={route.id} 
-              path={route.path} 
-              element={<route.component />} 
-            />
-          ))}
-          <Route index element={<routes[0].component />} />
+          {routes.map(route => {
+            const RouteComponent = route.component;
+            return (
+              <Route 
+                key={route.id} 
+                path={route.path} 
+                element={<RouteComponent />} 
+              />
+            );
+          })}
+          <Route index element={<IndexComponent />} />
         </Route>
       </Routes>
       <ToastContainer
